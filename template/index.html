@@ -1,1 +1,33 @@
-
+<!doctype html>
+<html>
+  <head>
+    <title>網上點餐平台</title>
+    <style>
+      body {
+        backgroud-color: rgb(0,0,0);
+        color: rgb(255,255,255);
+      }
+      #click {
+        backgroud-color: rgb(155,0,67);
+        color: rgb(255,255,255);
+        padding: 20px 22px;
+        font-size: 21px;
+      }
+    </style>
+  </head>
+  <body>
+    <center>
+      <br>
+      <br>
+      <br>
+      <h2>開始點餐吧！</h2>
+      <br>
+      <p id="click">按此點餐</p>
+    </center>
+    <script>
+     document.getElementById("click").addEventListener("click",()=> {
+       window.location.href="/order";
+     });
+    </script>
+  </body>
+</html>
