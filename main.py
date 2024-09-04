@@ -50,6 +50,7 @@ def on_connect():
 
 @socketio.on("get_food")
 def get_food():
+  food = Foods.query.all()
   emit("food_updated", {
         'name': food.name,
         'price': food.price,
@@ -76,7 +77,7 @@ def handle_update_food(data):
         'name': food.name,
         'price': food.price,
         'img': food.img,
-        'description': food.description,
+        'description': Foods.description,
         'state': food.state
     }, broadcast=True)
 
