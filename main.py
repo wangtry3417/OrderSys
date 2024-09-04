@@ -40,6 +40,10 @@ def index():
 def order_page():
   return render_template("order.html")
 
+@app.route("/admin")
+def staff_page():
+  return render_template("admin.html")
+
 #SocketIO
 @socketio.on("connect")
 def on_connect():
