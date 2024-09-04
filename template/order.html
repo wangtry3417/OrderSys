@@ -1,1 +1,60 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>餐廳點餐介面</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.4.1/socket.io.js"></script>
+  </head>
+    <style>
+        .food-card {
+            margin: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-center mt-4">菜單</h1>
+        <div class="row" id="food-items"></div>
+    </div>
 
+    <script>
+        const socket = io();
+
+        // 當連接成功時
+        socket.on("connect", () => {
+            console.log("Connected to server");
+        });
+
+        // 接收菜品更新事件
+        socket.on("food_updated", (food) => {
+            // 在這裡添加邏輯來更新菜品列表
+            const foodItemsContainer = document.getElementById('food-items');
+            const foodCard = document.createElement('div');
+            foodCard.className = 'col-md-4 food-card';
+            foodCard.innerHTML = `
+                <div class="card">
+                    <img src="${food.img}" class="card-img-top" alt="${food.name}">
+                    <div class="card-body">
+                        <h5 class="card-title">${food.name}</h5>
+                        <p class="card-text">${food.description}</p>
+                        <p class="card-text"><strong>價格: $${food.price}</strong></p>
+                        <p class="card-text"><small class="text-muted">狀態: ${food.state}</small></p>
+                        <button class="btn btn-primary">點選</button>
+                    </div>
+                </div>
+            `;
+            foodItemsContainer.appendChild(foodCard);
+        });
+
+        // 這裡可以加載初始菜品列表（可選）
+        // fetchInitialFoods();
+
+        // 假設你有一個函數供員工更新菜品
+        function updateFood(newFoodData) {
+            socket.emit("update_food", newFoodData);
+        }
+    </script>
+</body>
+</html>
