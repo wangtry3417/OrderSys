@@ -33,19 +33,17 @@
             const foodItemsContainer = document.getElementById('food-items');
             const foodCard = document.createElement('div');
             foodCard.className = 'col-md-4 food-card';
-            foodCard.innerHTML = `
-                <div class="card">
-                    <img src="${food.img}" class="card-img-top" alt="${food.name}">
-                    <div class="card-body">
-                        <h5 class="card-title">${food.name}</h5>
-                        <p class="card-text">${food.description}</p>
-                        <p class="card-text"><strong>價格: $${food.price}</strong></p>
-                        <p class="card-text"><small class="text-muted">狀態: ${food.state}</small></p>
-                        <button class="btn btn-primary">點選</button>
-                    </div>
-                </div>
-            `;
-            foodItemsContainer.appendChild(foodCard);
+            // 遍歷接收到的食品數據並顯示
+    foods.forEach(function(food) {
+        foodCard.innerHTML = `
+            <h3>${food.name}</h3>
+            <p>Price: ${food.price}</p>
+            <p>Description: ${food.description}</p>
+            <img src="${food.img}" alt="${food.name}" />
+            <p>State: ${food.state}</p>
+        `;
+        foodItemsContainer.appendChild(foodCard);
+    });
         });
 
         // 這裡可以加載初始菜品列表（可選）
