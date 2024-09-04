@@ -6,8 +6,7 @@ app = Flask(__name__)
 socketio = SocketIO(app)
 
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.config['SQLALCHEMY_DATABASE_URI'] = "postgres://default:Gd2MsST3QYWF@ep-hidden-salad-a1a7pob9-pooler.ap-southeast-1.aws.neon.tech:5432/verceldb?sslmode=require"
-
+app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://default:Gd2MsST3QYWF@ep-hidden-salad-a1a7pob9-pooler.ap-southeast-1.aws.neon.tech:5432/verceldb?sslmode=require"
 #DataBase setup
 db = SQLAlchemy(app)
 
