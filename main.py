@@ -37,6 +37,10 @@ class Foods(db.Model):
 def index():
   return render_template("index.html")
 
+@app.route("/order")
+def order_page():
+  return render_template("order.html")
+
 #SocketIO
 @socketio.on("connect")
 def on_connect():
