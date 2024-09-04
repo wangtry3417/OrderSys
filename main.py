@@ -12,9 +12,8 @@ db = SQLAlchemy(app)
 
 class Foods(db.Model):
     __tablename__ = 'foods'
-    pid = db.Column(db.Integer, primary_key=True)
     name = db.Column(
-        db.String(30), unique=True, nullable=False)
+        db.String(30), unique=True, primary_key=True)
     price = db.Column(db.Integer, nullable=False)
     img = db.Column(
         db.String(100), unique=True, nullable=False)
