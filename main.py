@@ -2,7 +2,7 @@ from flask import Flask,render_template,request
 from flask_sqlalchemy import SQLAlchemy
 from flask_socketio import SocketIO,emit,join_room,leave_room
 
-app = Flask(__name__,template_folder="/template")
+app = Flask(__name__,template_folder="template")
 socketio = SocketIO(app)
 
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
