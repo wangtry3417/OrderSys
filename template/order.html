@@ -50,7 +50,9 @@
 
         // 這裡可以加載初始菜品列表（可選）
         // fetchInitialFoods();
-
+        setInterval(()=> {
+           socket.emit("get_food");
+        },1000);
         // 假設你有一個函數供員工更新菜品
         function updateFood(newFoodData) {
             socket.emit("update_food", newFoodData);
