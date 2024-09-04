@@ -51,7 +51,6 @@ def on_connect():
 @socketio.on("get_food")
 def get_food():
   emit("food_updated", {
-        'pid': food.pid,
         'name': food.name,
         'price': food.price,
         'img': food.img,
@@ -74,7 +73,6 @@ def handle_update_food(data):
     
     # 通知所有客戶端更新
     emit("food_updated", {
-        'pid': food.pid,
         'name': food.name,
         'price': food.price,
         'img': food.img,
