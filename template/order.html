@@ -34,7 +34,7 @@
             const foodCard = document.createElement('div');
             foodCard.className = 'col-md-4 food-card';
             // 遍歷接收到的食品數據並顯示
-    foods.forEach(function(food) {
+    food.forEach(function(food) {
         foodCard.innerHTML = `
             <h3>${food.name}</h3>
             <p>Price: ${food.price}</p>
