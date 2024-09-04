@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>職員介面 - 添加和修改菜品</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.4.1/socket.io.js"></script>
+    <style>
+        .container {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-center">添加菜品</h1>
+        <form id="food-form">
+            <div class="form-group">
+                <label for="name">菜品名稱</label>
+                <input type="text" class="form-control" id="name" required>
+            </div>
+            <div class="form-group">
+                <label for="price">價格</label>
+                <input type="number" class="form-control" id="price" required>
+            </div>
+            <div class="form-group">
+                <label for="img">圖片URL</label>
+                <input type="text" class="form-control" id="img" required>
+            </div>
+            <div class="form-group">
+                <label for="description">描述</label>
+                <textarea class="form-control" id="description" rows="3" required></textarea>
+            </div>
+            <div class="form-group">
+                <label for="state">狀態</label>
+                <select class="form-control" id="state" required>
+                    <option value="available">可用</option>
+                    <option value="unavailable">不可用</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">添加菜品</button>
+        </form>
+
+        <h1 class="text-center mt-5">修改菜品狀態</h1>
+        <form id="update-form">
+            <div class="form-group">
+                <label for="update-name">菜品名稱</label>
+                <input type="text" class="form-control" id="update-name" required>
+            </div>
+            <div class="form-group">
+                <label for="update-state">新狀態</label>
+                <select class="form-control" id="update-state" required>
+                    <option value="available">可用</option>
+                    <option value="unavailable">不可用</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-warning">修改狀態</button>
+        </form>
+    </div>
+
+    <script>
+        const socket = io();
+
+        // 當連接成功時
+        socket.on("connect", () => {
+            console.log("Connected to server");
+        });
+
+        // 提交添加菜品的表單
+        document.getElementById('food-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            // 獲取表單數據
+            const foodData = {
+                name: document.getElementById('name').value,
+                price: parseInt(document.getElementById('price').value),
+                img: document.getElementById('img').value,
+                description: document.getElementById('description').value,
+                state: document.getElementById('state').value
+            };
+
+            // 發送到服務器
+            socket.emit("update_food", foodData);
+
+            // 清空表單
+            this.reset();
+        });
+
+        // 提交修改狀態的表單
+        document.getElementById('update-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            // 獲取表單數據
+            const updateData = {
+                name: document.getElementById('update-name').value,
+                state: document.getElementById('update-state').value
+            };
+
+            // 發送到服務器
+            socket.emit("update_food_state", updateData);
+
+            // 清空表單
+            this.reset();
+        });
+
+        // 接收菜品更新事件
+        socket.on("food_updated", (food) => {
+            console.log("New food added:", food);
+            // 在這裡可以更新菜品列表
+        });
+
+        // 接收狀態更新事件
+        socket.on("food_state_updated", (food) => {
+            console.log(`Food '${food.name}' state updated to '${food.state}'`);
+            // 可以在這裡更新狀態列表
+        });
+    </script>
+</body>
+</html>
