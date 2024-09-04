@@ -80,5 +80,19 @@ def handle_update_food(data):
         'state': food.state
     }, broadcast=True)
 
+@socketio.on("update_food_state")
+def handle_update_food_state(data):
+    # 根據菜品名更新狀態
+    food = Foods.query.filter_by(name=data['name']).first()
+    if food:
+        food.state = data['state']
+        db.session.commit()
+        
+        # 通知所有客戶端更新
+        emit("food_state_updated", {
+            'name': food.name,
+            'state': food.state
+        }, broadcast=True)
+
 
 socketio.run(app,host="0.0.0.0",port=5000,allow_unsafe_werkzeug=True)
