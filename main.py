@@ -30,7 +30,7 @@ class Foods(db.Model):
         self.description = description
         self.state = state
 
-clas Orders(db.Model):
+class Orders(db.Model):
     __tablename__ = 'orders'
     name = db.Column(
         db.String(30), unique=True, primary_key=True)
