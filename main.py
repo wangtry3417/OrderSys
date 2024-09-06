@@ -30,6 +30,18 @@ class Foods(db.Model):
         self.description = description
         self.state = state
 
+clas Orders(db.Model):
+    __tablename__ = 'orders'
+    name = db.Column(
+        db.String(30), unique=True, primary_key=True)
+    state = db.Column(
+        db.String(10), nullable=False)
+ 
+ 
+    def __init__(self, name):
+        self.name = name
+        self.state = "未完成"
+
 #HTTPS
 @app.route("/")
 def index():
@@ -105,5 +117,22 @@ def handle_update_food_state(data):
 @socketio.on("join")
 def on_join_team(team):
   return join_room(team)
-    
+
+@socketio.on("send_food")
+def recv_food_name(foodName):
+  food_obj = Orders(foodName)
+  db.session.add(food_obj)
+  db.session.commit()
+
+@socketio.on("get_orders")
+def get_orders():
+  orders = Orders.query.all()
+  ol = []
+  for o in orders:
+    ol.append({
+      "name":o.name,
+      "status":o.status
+    })
+    emit("updated_order",ol,room="chef")
+
 socketio.run(app,host="0.0.0.0",port=5000,allow_unsafe_werkzeug=True)
