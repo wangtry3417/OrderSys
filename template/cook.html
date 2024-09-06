@@ -14,9 +14,15 @@
         #dang {
            border:5px solid black;
         }
+        .btn {
+           background-color: rgb(145,67,89);
+           color: rgb(255,255,255);
+        }
     </style>
 </head>
 <body>
+    <button class="btn" onclick="endWork()">收工</button>
+    <br>
     <div class="container">
         <h1 class="text-center mt-4">菜單</h1>
         <div class="row" id="food-items"></div>
@@ -29,7 +35,10 @@
         socket.on("connect", () => {
             console.log("Connected to server");
         });
-
+        function endWork() {
+          socket.leave("cook");
+          window.location.href="/";
+        }
         // 接收菜品更新事件
         socket.on("updated_order", (food) => {
             // 在這裡添加邏輯來更新菜品列表
