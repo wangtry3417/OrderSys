@@ -124,7 +124,7 @@ def on_leave_team(team):
 
 @socketio.on("send_food")
 def recv_food_name(foodName):
-  food_obj = Orders(foodName)
+  food_obj = Orders(foodName,"未完成")
   db.session.add(food_obj)
   db.session.commit()
 
@@ -141,7 +141,8 @@ def get_orders():
 
 @socketio.on("delete_dang")
 def de_dang(foodName):
-  db.session.delete(Orders(foodName))
+  order = Orders.query.filter_by(name=foodName).first()
+  db.session.delete(Orders(foodName,order.state))
   db.session.commit()
 
 socketio.run(app,host="0.0.0.0",port=5000,allow_unsafe_werkzeug=True)
