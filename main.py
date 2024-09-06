@@ -118,6 +118,10 @@ def handle_update_food_state(data):
 def on_join_team(team):
   return join_room(team)
 
+@socketio.on("leave")
+def on_leave_team(team):
+  return leave_room(team)
+
 @socketio.on("send_food")
 def recv_food_name(foodName):
   food_obj = Orders(foodName)
@@ -134,5 +138,10 @@ def get_orders():
       "status":o.status
     })
     emit("updated_order",ol,room="cook")
+
+@socketio.on("delete_dang")
+def de_dang(foodName):
+  db.session.delete(Orders(foodName))
+  db.session.commit()
 
 socketio.run(app,host="0.0.0.0",port=5000,allow_unsafe_werkzeug=True)
