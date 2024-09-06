@@ -36,7 +36,7 @@
             console.log("Connected to server");
         });
         function endWork() {
-          socket.leave("cook");
+          socket.emit("cook");
           window.location.href="/";
         }
         // 接收菜品更新事件
