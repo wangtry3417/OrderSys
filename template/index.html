@@ -13,20 +13,34 @@
         padding: 20px 22px;
         font-size: 21px;
       }
+      #cook {
+        background-color: rgb(200,67,78);
+        color: rgb(255,255,255);
+        padding: 20px 22px;
+        font-size: 21px;
+      }
     </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.4.1/socket.io.js"></script>
   </head>
   <body>
     <center>
       <br>
       <br>
       <br>
+      <br>
       <h2>開始點餐吧！</h2>
       <br>
       <p id="click">按此點餐</p>
+      <br>
+      <p id="cook">加入廚務部</p>
     </center>
     <script>
+      const socket = io();
      document.getElementById("click").addEventListener("click",()=> {
        window.location.href="/order";
+     });
+      document.getElementById("click").addEventListener("click",()=> {
+       socket.emit("join","cook");
      });
     </script>
   </body>
