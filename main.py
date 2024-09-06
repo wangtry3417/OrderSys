@@ -43,6 +43,10 @@ def order_page():
 def staff_page():
   return render_template("admin.html")
 
+@app.route("/chef")
+def chef_page():
+  return render_template("cook.html")
+
 #SocketIO
 @socketio.on("connect")
 def on_connect():
@@ -101,4 +105,5 @@ def handle_update_food_state(data):
 @socketio.on("join")
 def on_join_team(team):
   join_room(team)
+    
 socketio.run(app,host="0.0.0.0",port=5000,allow_unsafe_werkzeug=True)
