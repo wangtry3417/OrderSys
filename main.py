@@ -133,6 +133,6 @@ def get_orders():
       "name":o.name,
       "status":o.status
     })
-    emit("updated_order",ol,room="chef")
+    emit("updated_order",ol,room="cook")
 
 socketio.run(app,host="0.0.0.0",port=5000,allow_unsafe_werkzeug=True)
