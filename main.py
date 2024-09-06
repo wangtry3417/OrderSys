@@ -104,6 +104,6 @@ def handle_update_food_state(data):
 
 @socketio.on("join")
 def on_join_team(team):
-  join_room(team)
+  return join_room(team)
     
 socketio.run(app,host="0.0.0.0",port=5000,allow_unsafe_werkzeug=True)
