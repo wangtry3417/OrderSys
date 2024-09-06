@@ -36,6 +36,7 @@
             // 遍歷接收到的食品數據並顯示
     food.forEach(function(food) {
         foodCard.innerHTML = `
+            <button onclick='order(${food.name})'>下單</button>
             <h3>${food.name}</h3>
             <p>Price: ${food.price}</p>
             <p>Description: ${food.description}</p>
@@ -43,6 +44,9 @@
             <p>State: ${food.state}</p>
         `;
         foodItemsContainer.appendChild(foodCard);
+        function order(foodName) {
+           socket.emit("send_food",foodName);
+        }
     });
         });
 
