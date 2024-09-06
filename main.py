@@ -34,13 +34,13 @@ class Orders(db.Model):
     __tablename__ = 'orders'
     name = db.Column(
         db.String(30), unique=True, primary_key=True)
-    state = db.Column(
+    status = db.Column(
         db.String(10), nullable=False)
  
  
     def __init__(self, name):
         self.name = name
-        self.state = "未完成"
+        self.status = "未完成"
 
 #HTTPS
 @app.route("/")
@@ -142,7 +142,7 @@ def get_orders():
 @socketio.on("delete_dang")
 def de_dang(foodName):
   order = Orders.query.filter_by(name=foodName).first()
-  db.session.delete(Orders(foodName,order.state))
+  db.session.delete(Orders(foodName,order.status))
   db.session.commit()
 
 socketio.run(app,host="0.0.0.0",port=5000,allow_unsafe_werkzeug=True)
