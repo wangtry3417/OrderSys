@@ -42,7 +42,7 @@ class Orders(db.Model):
         self.name = name
         self.status = "未完成"
 
-with app.context():
+with app.app_context():
   db.create_all()
 
 #HTTPS
