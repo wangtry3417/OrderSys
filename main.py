@@ -42,6 +42,9 @@ class Orders(db.Model):
         self.name = name
         self.status = "未完成"
 
+with app.context():
+  db.create_all()
+
 #HTTPS
 @app.route("/")
 def index():
