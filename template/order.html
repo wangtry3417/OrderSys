@@ -21,6 +21,7 @@
 
     <script>
         const socket = io();
+        const existingFoodNames = new Set();
 
         // 當連接成功時
         socket.on("connect", () => {
@@ -38,6 +39,7 @@
         if (existingFoodIds.has(food)) {
             return; // 如果食品已存在，则跳过
         }
+        existingFoodNames.add(food.name);
         foodCard.innerHTML = `
             <button onclick='socket.emit("send_food",${food.name});'>下單</button>
             <h3>${food.name}</h3>
