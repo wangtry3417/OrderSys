@@ -47,6 +47,9 @@
             foodCard.className = 'col-md-4 food-card';
             // 遍歷接收到的食品數據並顯示
     food.forEach(function(food) {
+        if (food==food) {
+          return;
+          }
         foodCard.innerHTML = `
           <div id='dang'>
             <button onclick='done(${food.name})'>完成該食品</button>
